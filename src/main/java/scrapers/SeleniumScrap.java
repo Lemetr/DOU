@@ -9,7 +9,7 @@ public class SeleniumScrap extends BasePage {
 
     public SeleniumScrap() {super(Constants.GET_URL);}
 
-    public StringBuilder getScrap(){
+    public String getScrap(){
 
         WebElement element = driver.findElement(By.cssSelector(Constants.MORE_BUTTON));
 
@@ -33,12 +33,15 @@ public class SeleniumScrap extends BasePage {
             String cities = e.findElement(By.cssSelector(Constants.CITIES)).getText();
             String description = e.findElement(By.cssSelector(Constants.DESCRIPTION)).getText();
 
-            sb.append(position).append(";").append(company).append(";").append(cities).append(";").append(description).append("\n");
+            sb.append(position).append(";")
+                    .append(company).append(";")
+                    .append(cities).append(";")
+                    .append(description).append("\n");
         }
 
         close();
         quit();
 
-        return sb;
+        return sb.toString();
     }
 }

@@ -6,12 +6,12 @@ import java.time.format.DateTimeFormatter;
 
 public class SaveType {
 
-    public static<T> void writeToFile(T sb){
+    public static <T> void writeToFile(T str){
         String fileName = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm-ss")) + ".csv";
         try {
             BufferedWriter bw = new BufferedWriter(
                     new PrintWriter(fileName, System.getProperty("file.encoding")));
-            bw.write(sb.toString());
+            bw.write(String.valueOf(str));
             bw.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -19,7 +19,7 @@ public class SaveType {
     }
 
     public static <T> void printToConsole(T sb){
-        System.out.println(sb.toString());
+        System.out.println(sb);
     }
 
 }

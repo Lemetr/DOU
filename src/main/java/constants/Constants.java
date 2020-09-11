@@ -3,8 +3,6 @@ package constants;
 public class Constants {
     public static String GET_URL = "https://jobs.dou.ua/vacancies/?category=Java";
     public static String POST_URL = "https://jobs.dou.ua/vacancies/xhr-load/?category=Java";
-    public static String HOST = "http://jobs.dou.ua";
-    public static String CONTENT_TYPE = "jobs.dou.ua";
     public static String MORE_BUTTON = "div.more-btn > a";
     public static String VACANCIES = "li.l-vacancy";
     public static String POSITION = "div.title > a.vt";
