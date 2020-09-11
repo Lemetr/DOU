@@ -1,33 +1,18 @@
 package scrapers;
 
+import JsonParsers.JsonParserImpl;
 import constants.Constants;
-import org.json.JSONObject;
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import java.io.IOException;
 
 public class JsoupScrap {
 
-    private String[] arr;
-    private StringBuilder sb = new StringBuilder();
-
-    public JsoupScrap() {
-        try {
-            initRequest();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public String getScrap(){
-
-        parse();
+    public static String getScrap(){
 
         StringBuilder sb = new StringBuilder();
-        Document document = Jsoup.parse(this.sb.toString());
+        Document document = Jsoup.parse(new JsonParserImpl().parse().toString());
         Elements elements = document.select(Constants.VACANCIES);
 
         for (Element element : elements) {
@@ -43,55 +28,5 @@ public class JsoupScrap {
         }
 
         return sb.toString();
-    }
-
-    private void parse() {
-
-        int count = 0;
-        boolean last = false;
-
-        while (!last){
-
-            try {
-                String body = initResponse(count);
-                JSONObject obj = new JSONObject(body);
-                sb.append(obj.getString("html"));
-                count+=obj.getInt("num");
-                last = obj.getBoolean("last");
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private String initResponse(int count) throws IOException {
-
-        return Jsoup
-                .connect(Constants.POST_URL)
-                .ignoreContentType(true)
-                .header("Referer", Constants.GET_URL)
-                .header("Cookie", arr[0])
-                .data("count", String.valueOf(count))
-                .data("csrfmiddlewaretoken", arr[1])
-                .method(Connection.Method.POST)
-                .execute()
-                .charset("UTF-8")
-                .body();
-    }
-
-    private void initRequest() throws IOException {
-
-        Connection.Response get = Jsoup
-                    .connect(Constants.GET_URL)
-                    .userAgent(Constants.USER_AGENT)
-                    .referrer(Constants.REFERER)
-                    .method(Connection.Method.GET)
-                    .execute();
-
-        arr = new String[2];
-        arr[0] = get.header("Set-Cookie").replaceAll(";.*", "");
-        arr[1] = Jsoup.parse(get.body()).select("input[name='csrfmiddlewaretoken']").val();
-
     }
 }
