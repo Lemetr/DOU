@@ -9,7 +9,7 @@ import org.jsoup.select.Elements;
 
 public class JsoupScrap {
 
-    public static String getScrap(){
+    public String getScrap(){
 
         StringBuilder sb = new StringBuilder();
         Document document = Jsoup.parse(new JsonParserImpl().parse().toString());
