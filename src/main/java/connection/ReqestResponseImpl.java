@@ -48,7 +48,7 @@ public class ReqestResponseImpl implements RequestResponse {
                     .method(Connection.Method.GET)
                     .execute();
             if (get==null)
-                throw new RequestWasNotAnswered("Jsoup.connect does not answered, Connection.Response == null");
+                throw new RequestWasNotAnswered();
         } catch (IOException | RequestWasNotAnswered e) {
             e.printStackTrace();
         }
@@ -56,7 +56,7 @@ public class ReqestResponseImpl implements RequestResponse {
 
         if (!get.hasHeader("Set-Cookie")) {
             try {
-                throw new NoSetCookieException("In Request there is no Header 'Set-Cookie'.");
+                throw new NoSetCookieException();
             } catch (NoSetCookieException e) {
                 e.printStackTrace();
             }

@@ -2,8 +2,8 @@ package exceptions;
 
 public class NoSetCookieException extends Exception {
 
-    public NoSetCookieException(String message) {
-        super(message);
+    public NoSetCookieException() {
+        super("In Request there is no Header 'Set-Cookie'.");
     }
 
 }
